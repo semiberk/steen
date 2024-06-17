@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steen, Papier, Schaar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Steen, Papier, Schaar</h1>
+    <div>
+        <button onclick="playGame('steen')">Steen</button>
+        <button onclick="playGame('papier')">Papier</button>
+        <button onclick="playGame('schaar')">Schaar</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        function aiChoice() {
+            const choices = ['steen', 'papier', 'schaar'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        function determineWinner(userChoice, aiChoice) {
+            if (userChoice === aiChoice) {
+                return 'Gelijkspel';
+            } else if ((userChoice === 'steen' && aiChoice === 'schaar') ||
+                       (userChoice === 'papier' && aiChoice === 'steen') ||
+                       (userChoice === 'schaar' && aiChoice === 'papier')) {
+                return 'Jij wint!';
+            } else {
+                return 'AI wint!';
+            }
+        }
+
+        function playGame(userChoice) {
+            const aiChoiceValue = aiChoice();
+            const result = determineWinner(userChoice, aiChoiceValue);
+            document.getElementById('result').innerText = `AI kiest: ${aiChoiceValue}. ${result}`;
+        }
+    </script>
+</body>
+</html>
